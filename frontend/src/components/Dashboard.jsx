@@ -1,9 +1,11 @@
 import axios from "axios"
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom";
 
 export const DashBoard = ()=>{
     const [users,setUsers]=useState([]);
     const [filter,setFilter]=useState("");
+    const navigate=useNavigate();
     useEffect(()=>{
         const timer=setTimeout(async () => {
             const response = await axios.get(`http://localhost:2000/api/v1/user/bulk/?filter=${filter}`, {
@@ -12,15 +14,17 @@ export const DashBoard = ()=>{
                     'Authorization': localStorage.getItem("token")
                 }
             });
-            console.log(response.data.users);
             setUsers(response.data.users); 
         },1000)
         return()=>{
             clearTimeout(timer)
         }
     },[filter])
+    const sendMoney=(id,name)=>{
+        navigate("/send?id="+id+"&name="+name);
+    }
     return (
-        <div>
+        <div style={{display: "grid",justifyContent:"left"}}>
             <div>
                 <input onChange={(e)=>{
                     setFilter(e.target.value)
@@ -29,9 +33,12 @@ export const DashBoard = ()=>{
             <div>
                 {users.map((data)=>{
                     return (
-                        <div>{data.username}</div>
+                        <div  key={data._id}>{data.username}
+                        <button onClick={()=>{sendMoney(data._id,data.username)}}>send money</button>
+                        </div>
                     )
                 })}
+                
             </div>
         </div>
     )
