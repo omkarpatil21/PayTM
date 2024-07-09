@@ -21,6 +21,8 @@ accountRouter.post("/transfer", authMiddleware, async (req, res) => {
 
     // Fetch the accounts within the transaction
     const account = await Account.findOne({ userId: req.userId }).session(session);
+    console.log(req.userId);
+    console.log(to);
 
     if (!account || account.balance < amount) {
         await session.abortTransaction();

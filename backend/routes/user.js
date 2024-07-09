@@ -43,6 +43,7 @@ router.post("/signup",async(req,res)=>{
 })
 
 router.post("/signin",async(req,res)=>{
+    console.log(req.body)
     const validate = signinUser.safeParse({
         username : req.body.username,
         password : req.body.password,
@@ -81,11 +82,15 @@ router.put("/",authMiddleware,async(req,res)=>{
 })
 
 router.get('/bulk',authMiddleware,async(req,res)=>{
-    const filter=req.query.filter;
+    const filter=req.query.filter||"";
     const users = await User.find({
         $or: [
-            { firstName: filter },
-            { lastName: filter }
+            { firstName: {
+                "$regex":filter
+            } },
+            { lastName: {
+                "$regex":filter
+            } }
         ]
     });
     const list=users.map((user)=>{
