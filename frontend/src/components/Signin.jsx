@@ -6,7 +6,7 @@ export const Signin = ()=>{
     const [password,setPassword]= useState("");
     const navigate = useNavigate();
     const signRequest = async()=>{
-        const response = await fetch("http://localhost:2000/api/v1/user/signin",{
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/user/signin`,{
            method : 'POST',
            headers: {
             'Content-Type': 'application/json'

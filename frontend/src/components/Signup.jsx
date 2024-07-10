@@ -9,7 +9,7 @@ export const Signup = ()=>{
     const [password,setPassword]=useState("");
     const navigate=useNavigate();
     const createUser=async()=>{
-        const response=await axios.post("http://localhost:2000/api/v1/user/signup",{
+        const response=await axios.post(`${import.meta.env.VITE_BACKEND_URL}/user/signup`,{
             firstName,
             lastName,
             username,

@@ -8,7 +8,7 @@ export const DashBoard = ()=>{
     const navigate=useNavigate();
     useEffect(()=>{
         const timer=setTimeout(async () => {
-            const response = await axios.get(`http://localhost:2000/api/v1/user/bulk/?filter=${filter}`, {
+            const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/user/bulk/?filter=${filter}`, {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': localStorage.getItem("token")

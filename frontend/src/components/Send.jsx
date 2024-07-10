@@ -9,7 +9,7 @@ export const Send = ()=>{
     const name=searchParams.get("name");
     const navigate=useNavigate();
     const sendMoney=async()=>{
-        const response = await axios.post("http://localhost:2000/api/v1/account/transfer", {
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/account/transfer`, {
             to: id,
             amount: amount
         }, {
