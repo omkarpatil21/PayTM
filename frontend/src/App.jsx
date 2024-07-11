@@ -6,7 +6,7 @@ import { Send } from './components/Send'
 function App() {
 
   return (
-    <div>
+    <div className='p-10'>
         <BrowserRouter>
           <Routes>
             <Route path="/signup" element={<Signup/>}></Route>
